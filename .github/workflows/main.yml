@@ -1,8 +1,8 @@
 name: Market Bot
 on:
   schedule:
-    # 11:31 AM IST is 06:01 AM UTC
-    - cron: '01 06 * * *' 
+    # 11:45 AM IST is 06:15 AM UTC
+    - cron: '15 06 * * *' 
   workflow_dispatch: 
 jobs:
   run-bot:
