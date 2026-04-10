@@ -327,7 +327,7 @@ class SmartFinanceDashboard:
         message += "• OVERBOUGHT stocks need tight stop-loss\n"
         message += "• OVERSOLD stocks can use wider stops\n\n"
         
-        message += f"\n_Data Source: Yahoo Finance | Analysis Time: {datetime.now().strftime('%H:%M')}_"
+        message += f"\n_Data Source: Billionaires Group_"
         
         return message
 
