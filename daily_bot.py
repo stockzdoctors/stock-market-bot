@@ -5,9 +5,6 @@ from datetime import datetime
 import ta
 import requests
 import os
-import matplotlib.pyplot as plt
-import mplfinance as mpf
-from io import BytesIO
 
 class SmartFinanceDashboard:
     def __init__(self):
@@ -147,71 +144,6 @@ class SmartFinanceDashboard:
             'low_52w': 23500.00,
             'volume': 1500000
         }
-
-    def create_nifty_chart(self):
-        """Create Nifty candlestick chart with technical indicators"""
-        try:
-            # Fetch Nifty data for last 30 days
-            nifty = yf.Ticker("^NSEI")
-            hist = nifty.history(period="1mo")
-            
-            if len(hist) < 20:
-                return None
-            
-            # Calculate indicators
-            hist['SMA_20'] = hist['Close'].rolling(window=20).mean()
-            hist['SMA_50'] = hist['Close'].rolling(window=50).mean()
-            
-            # Create candlestick chart with mplfinance
-            mc = mpf.make_marketcolors(
-                up='green',
-                down='red',
-                edge='inherit',
-                wick='inherit',
-                volume='in',
-                ohlc='inherit'
-            )
-            
-            s = mpf.make_mpf_style(
-                marketcolors=mc,
-                gridstyle='--',
-                y_on_right=False,
-                figcolor='white',
-                facecolor='white',
-                gridcolor='lightgray'
-            )
-            
-            # Add extra plots for indicators
-            apds = [
-                mpf.make_addplot(hist['SMA_20'], color='blue', width=1, label='SMA 20'),
-                mpf.make_addplot(hist['SMA_50'], color='orange', width=1, label='SMA 50')
-            ]
-            
-            # Create the plot
-            fig, axes = mpf.plot(
-                hist,
-                type='candle',
-                style=s,
-                addplot=apds,
-                volume=True,
-                title=f'\nNIFTY 50 - Last 30 Days\nCurrent: ₹{hist["Close"][-1]:.2f}',
-                ylabel='Price (₹)',
-                ylabel_lower='Volume',
-                figsize=(12, 8),
-                returnfig=True
-            )
-            
-            # Save to bytes buffer
-            buffer = BytesIO()
-            fig.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
-            buffer.seek(0)
-            plt.close(fig)
-            
-            return buffer
-            
-        except Exception as e:
-            print(f"Error creating chart: {e}")
-            return None
 
     def get_stock_data_batch(self):
         stocks_data = []
@@ -399,22 +331,21 @@ class SmartFinanceDashboard:
         
         return message
 
-    def send_to_telegram_with_image(self, message, image_buffer):
-        """Send message with chart image to Telegram groups"""
+    def send_to_telegram(self, message):
         bot_token = os.environ.get('TELEGRAM_TOKEN')
         
+        # If environment variable not set, use hardcoded (for testing only)
         if not bot_token:
             bot_token = "8259489232:AAH_1aZRNl_0dnJe_ZRA4g3TM9Pj53F148E"
             print("⚠️ Using hardcoded bot token. Set TELEGRAM_TOKEN environment variable for production.")
         
         chat_ids = ["-1001669216683", "-1003702373696", "-1001645367784"]
         
-        print(f"\n📤 Sending message with chart to {len(chat_ids)} Telegram groups...")
+        print(f"\n📤 Sending message to {len(chat_ids)} Telegram groups...")
         
         for cid in chat_ids:
             try:
-                # First, send the text message
-                text_response = requests.post(
+                response = requests.post(
                     f"https://api.telegram.org/bot{bot_token}/sendMessage",
                     data={
                         'chat_id': cid,
@@ -424,30 +355,12 @@ class SmartFinanceDashboard:
                     timeout=15
                 )
                 
-                if text_response.status_code == 200:
-                    print(f"✅ Text message sent to {cid}")
+                if response.status_code == 200:
+                    print(f"✅ Message sent successfully to {cid}")
                 else:
-                    print(f"❌ Failed to send text to {cid}: {text_response.status_code}")
-                
-                # Small delay between text and image
-                time.sleep(1)
-                
-                # Then, send the chart image if available
-                if image_buffer:
-                    image_buffer.seek(0)
-                    files = {'photo': ('nifty_chart.png', image_buffer, 'image/png')}
-                    image_response = requests.post(
-                        f"https://api.telegram.org/bot{bot_token}/sendPhoto",
-                        data={'chat_id': cid},
-                        files=files,
-                        timeout=30
-                    )
+                    print(f"❌ Failed to send to {cid}: HTTP {response.status_code}")
+                    print(f"   Response: {response.text}")
                     
-                    if image_response.status_code == 200:
-                        print(f"✅ Chart image sent to {cid}")
-                    else:
-                        print(f"❌ Failed to send image to {cid}: {image_response.status_code}")
-                
             except Exception as e:
                 print(f"❌ Error sending to {cid}: {str(e)}")
         
@@ -470,13 +383,6 @@ if __name__ == "__main__":
     stocks = bot.get_stock_data_batch()
     print(f"   Retrieved data for {len(stocks)} stocks")
     
-    print("📊 Creating Nifty chart with technical indicators...")
-    chart_buffer = bot.create_nifty_chart()
-    if chart_buffer:
-        print("   Chart created successfully!")
-    else:
-        print("   Could not create chart")
-    
     print("🧠 Generating market prediction...")
     pred = bot.get_intelligent_prediction(nifty, stocks)
     print(f"   Outlook: {pred['direction']} (Confidence: {pred['confidence']})")
@@ -488,8 +394,8 @@ if __name__ == "__main__":
     msg = bot.format_telegram_message(nifty, stocks, pred, news)
     
     print("-" * 50)
-    print("📤 Sending to Telegram with chart image...")
-    bot.send_to_telegram_with_image(msg, chart_buffer)
+    print("📤 Sending to Telegram...")
+    bot.send_to_telegram(msg)
     
     print("-" * 50)
     print("✅ Bot execution completed successfully!")
