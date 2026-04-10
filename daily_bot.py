@@ -256,7 +256,7 @@ class SmartFinanceDashboard:
         bearish_stocks = [s for s in stocks_data if s['technicals'] and s['technicals']['trend'] == 'BEARISH'][:5]
         
         message = f"📊 *Billionaires Group ADVANCED MARKET ANALYSIS* 📊\n"
-        message += f"*Time:* {datetime.now().strftime('%Y-%m-%d %H:%M')}\n\n"
+        message += f"*Date:* {datetime.now().strftime('%Y-%m-%d')}\n\n"
         
         nifty_emoji = "🟢" if nifty_data['change_percent'] > 0 else "🔴"
         message += f"🎯 *NIFTY 50:* ₹{nifty_data['current_price']:,.0f} {nifty_emoji}\n"
