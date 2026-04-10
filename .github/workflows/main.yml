@@ -1,18 +1,23 @@
 name: Market Bot
+
 on:
   schedule:
-    # This instructs GitHub to run the job every 5 minutes 
-    # (The minimum allowed by GitHub's scheduler)
-    - cron: '*/5 * * * *' 
-  workflow_dispatch: 
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with: {python-version: '3.9'}
-      - run: pip install -r requirements.txt
-      - run: python daily_bot.py
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+      - name: Run Bot
+        run: python daily_bot.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
