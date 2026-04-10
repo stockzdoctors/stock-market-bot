@@ -1,8 +1,9 @@
 name: Market Bot
 on:
   schedule:
-    # 11:55 AM IST is 06:25 AM UTC
-    - cron: '15 06 * * *' 
+    # This instructs GitHub to run the job every 5 minutes 
+    # (The minimum allowed by GitHub's scheduler)
+    - cron: '*/5 * * * *' 
   workflow_dispatch: 
 jobs:
   run-bot:
