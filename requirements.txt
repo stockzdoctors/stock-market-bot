@@ -1,4 +1,6 @@
 yfinance
 pandas
+matplotlib
+mplfinance
 ta
 requests
