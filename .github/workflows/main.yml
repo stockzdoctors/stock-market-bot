@@ -1,7 +1,7 @@
 name: Market Bot
 on:
   schedule:
-    # 11:45 AM IST is 06:15 AM UTC
+    # 11:55 AM IST is 06:25 AM UTC
     - cron: '15 06 * * *' 
   workflow_dispatch: 
 jobs:
