@@ -1,9 +1,15 @@
-      - name: Run Bot with Telegram (9:20 AM IST only)
-        if: github.event.schedule == '50 3 * * 1-5'
+on:
+  schedule:
+    # 9:20 AM IST (3:50 UTC) every day
+    - cron: '50 3 * * *'
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Bot
         run: python daily_bot.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-
-      - name: Run Bot without Telegram (All other times)
-        if: github.event.schedule != '50 3 * * 1-5'
-        run: python daily_bot.py
