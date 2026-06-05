@@ -382,10 +382,10 @@ class SmartFinanceDashboard:
         """Send a list of message strings to all groups in order."""
         bot_token = os.environ.get('TELEGRAM_TOKEN')
         if not bot_token:
-            bot_token = "8259489232:AAH_1aZRNl_0dnJe_ZRA4g3TM9Pj53F148E"
+            bot_token = "8982141225:AAG7RzT_sVheN8eVF2T6xeJIzrOvQ-I70ws"
             print("⚠️  Using hardcoded token. Set TELEGRAM_TOKEN env var for production.")
 
-        chat_ids = ["-1001669216683", "-1003702373696", "-1001645367784"]
+        chat_ids = ["-1001669216683", "-1003702373696", "-1001645367784", "-1002955746386"]
 
         if isinstance(messages, str):
             messages = [messages]
