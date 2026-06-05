@@ -1,10 +1,27 @@
+import sys
 import yfinance as yf
 import pandas as pd
 import time
-from datetime import datetime
+from datetime import datetime, date
 import ta
 import requests
 import os
+
+# NSE trading holidays for 2026 — update this list each year
+NSE_HOLIDAYS = {
+    date(2026,  1, 26),  # Republic Day
+    date(2026,  2, 26),  # Mahashivratri
+    date(2026,  4,  3),  # Good Friday
+    date(2026,  4, 14),  # Dr. Ambedkar Jayanti
+    date(2026,  4, 22),  # Ram Navami
+    date(2026,  5,  1),  # Maharashtra Day / Labour Day
+    date(2026,  8, 27),  # Ganesh Chaturthi
+    date(2026, 10,  2),  # Gandhi Jayanti
+    date(2026, 10, 20),  # Dussehra
+    date(2026, 11,  9),  # Diwali Balipratipada
+    date(2026, 11, 25),  # Guru Nanak Jayanti
+    date(2026, 12, 25),  # Christmas
+}
 
 
 class SmartFinanceDashboard:
@@ -414,6 +431,14 @@ class SmartFinanceDashboard:
 
 # ══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
+    today = date.today()
+    if today.weekday() >= 5:
+        print(f"Weekend ({today.strftime('%A %d-%b-%Y')}). NSE closed. Skipping.")
+        sys.exit(0)
+    if today in NSE_HOLIDAYS:
+        print(f"NSE Holiday ({today.strftime('%d-%b-%Y')}). Market closed. Skipping.")
+        sys.exit(0)
+
     print("🚀 Starting Billionaires Group Market Analysis Bot...")
     print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("-" * 50)
