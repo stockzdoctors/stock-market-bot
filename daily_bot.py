@@ -457,15 +457,15 @@ class SmartFinanceDashboard:
     def _build_news_caption(self, nifty_data, news_items):
         today = datetime.now().strftime('%d %b %Y')
         sign  = '+' if nifty_data['change_percent'] >= 0 else ''
-        cap   = (f"📊 *NIFTY 50 — {today}*\n"
+        cap   = (f"📊 NIFTY 50 — {today}\n"
                  f"₹{nifty_data['current_price']:,}  "
                  f"({sign}{nifty_data['change_percent']:.2f}%)\n\n")
         if news_items:
-            cap += "📰 *Today's Market News*\n"
+            cap += "📰 Today's Market News\n"
             cap += "━━━━━━━━━━━━━━━━━━━\n"
             for i, headline in enumerate(news_items, 1):
-                cap += f"{i}\\. {headline}\n\n"
-        cap += "_Source: ET Markets_"
+                cap += f"{i}. {headline}\n\n"
+        cap += "Source: ET Markets"
         return cap
 
     def _send_photo(self, bot_token, chat_id, photo_path, caption):
@@ -473,7 +473,7 @@ class SmartFinanceDashboard:
             with open(photo_path, 'rb') as f:
                 r = requests.post(
                     f"https://api.telegram.org/bot{bot_token}/sendPhoto",
-                    data={'chat_id': chat_id, 'caption': caption, 'parse_mode': 'MarkdownV2'},
+                    data={'chat_id': chat_id, 'caption': caption},
                     files={'photo': f},
                     timeout=30
                 )
@@ -487,8 +487,8 @@ class SmartFinanceDashboard:
 
     def send_chart_and_news(self, nifty_data, news_items):
         """Send NIFTY chart image + news headlines to all groups."""
-        bot_token = os.environ.get('TELEGRAM_TOKEN') or "8982141225:AAG7RzT_sVheN8eVF2T6xeJIzrOvQ-I70ws"
-        chat_ids  = ["-1001669216683", "-1003702373696", "-1001645367784", "-1002955746386"]
+        bot_token = self._get_token()
+        chat_ids  = self._get_chat_ids()
         caption   = self._build_news_caption(nifty_data, news_items)
         chart     = self.generate_nifty_chart()
 
@@ -520,14 +520,23 @@ class SmartFinanceDashboard:
             print(f"   ❌ Exception: {e}")
             return False
 
+    def _get_token(self):
+        token = os.environ.get('TELEGRAM_TOKEN')
+        if not token:
+            token = "8982141225:AAG7RzT_sVheN8eVF2T6xeJIzrOvQ-I70ws"
+            print("⚠️  Using hardcoded token.")
+        return token
+
+    def _get_chat_ids(self):
+        if os.environ.get('TEST_MODE', 'false').lower() == 'true':
+            print("🧪 TEST MODE — sending to test group only")
+            return ["-1002955746386"]
+        return ["-1001669216683", "-1003702373696", "-1001645367784", "-1002955746386"]
+
     def send_to_telegram(self, messages):
         """Send a list of message strings to all groups in order."""
-        bot_token = os.environ.get('TELEGRAM_TOKEN')
-        if not bot_token:
-            bot_token = "8982141225:AAG7RzT_sVheN8eVF2T6xeJIzrOvQ-I70ws"
-            print("⚠️  Using hardcoded token. Set TELEGRAM_TOKEN env var for production.")
-
-        chat_ids = ["-1001669216683", "-1003702373696", "-1001645367784", "-1002955746386"]
+        bot_token = self._get_token()
+        chat_ids  = self._get_chat_ids()
 
         if isinstance(messages, str):
             messages = [messages]
