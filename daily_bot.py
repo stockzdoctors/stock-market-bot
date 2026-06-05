@@ -571,6 +571,117 @@ class SmartFinanceDashboard:
 
         print("\n✅ Telegram sending completed!")
 
+    # ---------------------------------------- ORB breakout scanner 📊
+
+    def get_first_candle_breakouts(self):
+        """Scan top 20 intraday gainers for first 15-min candle breakouts."""
+        print("   Step 1: Fetching daily data to rank gainers...")
+        ranked = []
+        for symbol in self.nifty_50_symbols:
+            try:
+                hist = yf.Ticker(symbol).history(period='5d', interval='1d')
+                if len(hist) < 2:
+                    continue
+                prev  = hist['Close'].iloc[-2]
+                curr  = hist['Close'].iloc[-1]
+                chg   = (curr - prev) / prev * 100
+                ranked.append({'symbol': symbol, 'change_pct': round(chg, 2), 'current': round(curr, 2)})
+            except Exception:
+                continue
+
+        top20 = sorted(ranked, key=lambda x: x['change_pct'], reverse=True)[:20]
+        print(f"   Top 20 gainers identified. Scanning 15-min candles...")
+
+        buys, sells = [], []
+        for stock in top20:
+            try:
+                intra = yf.Ticker(stock['symbol']).history(period='1d', interval='15m')
+                if len(intra) < 2:
+                    continue
+
+                first_high  = round(intra['High'].iloc[0], 2)
+                first_low   = round(intra['Low'].iloc[0], 2)
+                curr_price  = round(intra['Close'].iloc[-1], 2)
+                risk        = round(first_high - first_low, 2)
+                sym         = stock['symbol'].replace('.NS', '')
+
+                if risk <= 0:
+                    continue
+
+                if curr_price > first_high:
+                    buys.append({
+                        'symbol':     sym,
+                        'entry':      first_high,
+                        'sl':         first_low,
+                        'target':     round(first_high + 2 * risk, 2),
+                        'risk':       risk,
+                        'change_pct': stock['change_pct'],
+                        'current':    curr_price,
+                    })
+                elif curr_price < first_low:
+                    sells.append({
+                        'symbol':     sym,
+                        'entry':      first_low,
+                        'sl':         first_high,
+                        'target':     round(first_low - 2 * risk, 2),
+                        'risk':       risk,
+                        'change_pct': stock['change_pct'],
+                        'current':    curr_price,
+                    })
+            except Exception:
+                continue
+
+        return {'buy': buys, 'sell': sells, 'top20': top20}
+
+    def build_breakout_message(self, breakouts):
+        now   = datetime.now().strftime('%d %b %Y  %I:%M %p')
+        buys  = breakouts['buy']
+        sells = breakouts['sell']
+
+        m  = f"⚡ *FIRST 15-MIN CANDLE BREAKOUT*\n"
+        m += f"🕘 {now} IST\n"
+        m += f"_(Scanned: Top 20 Gainers — NIFTY 50)_\n"
+        m += f"━━━━━━━━━━━━━━━━━━━\n\n"
+
+        if buys:
+            m += f"🟢 *BUY SIGNALS  ({len(buys)})*\n\n"
+            for s in buys:
+                m += f"📈 *{s['symbol']}*  (+{s['change_pct']}%)\n"
+                m += f"  Entry  : ₹{s['entry']}\n"
+                m += f"  Stop   : ₹{s['sl']}  (Risk ₹{s['risk']:.1f})\n"
+                m += f"  Target : ₹{s['target']}  (RR 1:2)\n\n"
+
+        if sells:
+            m += f"🔴 *SELL SIGNALS  ({len(sells)})*\n\n"
+            for s in sells:
+                m += f"📉 *{s['symbol']}*  ({s['change_pct']}%)\n"
+                m += f"  Entry  : ₹{s['entry']}\n"
+                m += f"  Stop   : ₹{s['sl']}  (Risk ₹{s['risk']:.1f})\n"
+                m += f"  Target : ₹{s['target']}  (RR 1:2)\n\n"
+
+        if not buys and not sells:
+            m += f"😴 *No breakouts yet*\n"
+            m += f"_All top 20 gainers still within_\n"
+            m += f"_their first 15-min candle range_\n\n"
+
+        m += f"━━━━━━━━━━━━━━━━━━━\n"
+        m += f"• First candle: 9:15 – 9:30 AM\n"
+        m += f"• Max 2% capital per trade\n"
+        m += f"⚠️ _Not SEBI registered advice_"
+        return m
+
+    def send_breakout_alert(self):
+        bot_token = self._get_token()
+        chat_ids  = self._get_chat_ids()
+        breakouts = self.get_first_candle_breakouts()
+        msg       = self.build_breakout_message(breakouts)
+
+        print(f"\n📤 Sending breakout alert to {len(chat_ids)} groups...")
+        for cid in chat_ids:
+            ok = self._post(bot_token, cid, msg)
+            print(f"  → {cid}: {'✅' if ok else '❌'}")
+            time.sleep(1)
+
     # ------------------------------------------ legacy compatibility
 
     def generate_intelligent_news(self, nifty_data, prediction, stocks_data):
