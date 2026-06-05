@@ -3,7 +3,6 @@ import yfinance as yf
 import pandas as pd
 import time
 from datetime import datetime, date
-import ta
 import requests
 import os
 
@@ -67,7 +66,10 @@ class SmartFinanceDashboard:
 
             hist['SMA_20'] = hist['Close'].rolling(window=20).mean()
             hist['EMA_9']  = hist['Close'].ewm(span=9, adjust=False).mean()
-            hist['RSI']    = ta.momentum.RSIIndicator(hist['Close']).rsi()
+            delta = hist['Close'].diff()
+            gain  = delta.clip(lower=0).rolling(14).mean()
+            loss  = (-delta.clip(upper=0)).rolling(14).mean()
+            hist['RSI'] = 100 - (100 / (1 + gain / loss))
 
             current_price = hist['Close'].iloc[-1]
             prev_price    = hist['Close'].iloc[-2]
