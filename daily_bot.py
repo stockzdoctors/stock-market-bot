@@ -379,6 +379,129 @@ class SmartFinanceDashboard:
         m += f"_Data: Billionaires Group_"
         return m
 
+    # --------------------------------------------------- news + chart 📰🖼️
+
+    def fetch_market_news(self):
+        """Fetch top 5 market headlines from ET Markets RSS."""
+        try:
+            import xml.etree.ElementTree as ET
+            r = requests.get(
+                "https://economictimes.indiatimes.com/markets/stocks/rss.cms",
+                timeout=10,
+                headers={'User-Agent': 'Mozilla/5.0'}
+            )
+            root = ET.fromstring(r.content)
+            news = []
+            for item in root.findall('.//item')[:5]:
+                title = item.find('title')
+                if title is not None and title.text:
+                    news.append(title.text.strip())
+            return news
+        except Exception as e:
+            print(f"   News fetch failed: {e}")
+            return []
+
+    def generate_nifty_chart(self):
+        """Generate a 1-month NIFTY price chart; returns PNG path or None."""
+        try:
+            import matplotlib
+            matplotlib.use('Agg')
+            import matplotlib.pyplot as plt
+            import matplotlib.dates as mdates
+
+            hist = yf.Ticker("^NSEI").history(period="1mo")
+            if len(hist) < 5:
+                return None
+
+            closes = hist['Close']
+            dates  = hist.index
+            color  = '#00d26a' if closes.iloc[-1] >= closes.iloc[0] else '#ff4d4d'
+
+            fig, ax = plt.subplots(figsize=(10, 5))
+            fig.patch.set_facecolor('#0d1117')
+            ax.set_facecolor('#0d1117')
+
+            ax.plot(dates, closes, color=color, linewidth=2)
+            ax.fill_between(dates, closes, closes.min(), alpha=0.15, color=color)
+
+            last   = closes.iloc[-1]
+            pct    = (last - closes.iloc[0]) / closes.iloc[0] * 100
+            sign   = '+' if pct >= 0 else ''
+            ax.annotate(
+                f"₹{last:,.0f}  ({sign}{pct:.2f}%)",
+                xy=(dates[-1], last), xytext=(-80, 15),
+                textcoords='offset points', color=color,
+                fontsize=11, fontweight='bold'
+            )
+
+            ax.set_title("NIFTY 50  —  Last 1 Month", color='white', fontsize=13, pad=10)
+            ax.tick_params(colors='#aaaaaa')
+            for spine in ax.spines.values():
+                spine.set_color('#333333')
+            ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'₹{x:,.0f}'))
+            ax.xaxis.set_major_formatter(mdates.DateFormatter('%d %b'))
+            ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=1))
+            plt.xticks(rotation=30, color='#aaaaaa')
+            plt.yticks(color='#aaaaaa')
+            ax.grid(True, color='#1e1e1e', linewidth=0.6)
+
+            plt.tight_layout()
+            path = '/tmp/nifty_chart.png'
+            plt.savefig(path, dpi=120, bbox_inches='tight', facecolor='#0d1117')
+            plt.close()
+            return path
+        except Exception as e:
+            print(f"   Chart generation failed: {e}")
+            return None
+
+    def _build_news_caption(self, nifty_data, news_items):
+        today = datetime.now().strftime('%d %b %Y')
+        sign  = '+' if nifty_data['change_percent'] >= 0 else ''
+        cap   = (f"📊 *NIFTY 50 — {today}*\n"
+                 f"₹{nifty_data['current_price']:,}  "
+                 f"({sign}{nifty_data['change_percent']:.2f}%)\n\n")
+        if news_items:
+            cap += "📰 *Today's Market News*\n"
+            cap += "━━━━━━━━━━━━━━━━━━━\n"
+            for i, headline in enumerate(news_items, 1):
+                cap += f"{i}\\. {headline}\n\n"
+        cap += "_Source: ET Markets_"
+        return cap
+
+    def _send_photo(self, bot_token, chat_id, photo_path, caption):
+        try:
+            with open(photo_path, 'rb') as f:
+                r = requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/sendPhoto",
+                    data={'chat_id': chat_id, 'caption': caption, 'parse_mode': 'MarkdownV2'},
+                    files={'photo': f},
+                    timeout=30
+                )
+            if r.status_code == 200:
+                return True
+            print(f"   ❌ Photo HTTP {r.status_code}: {r.text[:120]}")
+            return False
+        except Exception as e:
+            print(f"   ❌ Photo Exception: {e}")
+            return False
+
+    def send_chart_and_news(self, nifty_data, news_items):
+        """Send NIFTY chart image + news headlines to all groups."""
+        bot_token = os.environ.get('TELEGRAM_TOKEN') or "8982141225:AAG7RzT_sVheN8eVF2T6xeJIzrOvQ-I70ws"
+        chat_ids  = ["-1001669216683", "-1003702373696", "-1001645367784", "-1002955746386"]
+        caption   = self._build_news_caption(nifty_data, news_items)
+        chart     = self.generate_nifty_chart()
+
+        print(f"\n📤 Sending chart+news to {len(chat_ids)} groups...")
+        for cid in chat_ids:
+            if chart:
+                ok = self._send_photo(bot_token, cid, chart, caption)
+            else:
+                # fallback to text if chart failed
+                ok = self._post(bot_token, cid, caption)
+            print(f"  → Group {cid}: {'✅' if ok else '❌'}")
+            time.sleep(1)
+
     # ----------------------------------------------- Telegram sender 📤
 
     def _post(self, bot_token, chat_id, text):
@@ -472,7 +595,12 @@ if __name__ == "__main__":
         flag = "✅" if len(p) <= 4096 else "⚠️ OVER LIMIT"
         print(f"   Part {i}: {len(p)} chars {flag}")
 
+    print("📰 Fetching market news...")
+    news = bot.fetch_market_news()
+    print(f"   {len(news)} headlines fetched")
+
     print("-" * 50)
     bot.send_to_telegram([part1, part2, part3])
+    bot.send_chart_and_news(nifty, news)
     print("-" * 50)
     print("✅ Done!")
