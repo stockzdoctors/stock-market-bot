@@ -1,9 +1,9 @@
-name: First 15-Min Candle Breakout Alert
+name: SL / Target Hit Monitor
 
 on:
   schedule:
-    # 9:32 AM IST (4:02 UTC) Monday–Friday — first candle closes at 9:30, 2 min buffer
-    - cron: '2 4 * * 1-5'
+    # Every 15 min from 9:30 AM to 3:30 PM IST (4:00–10:00 UTC) Mon–Fri
+    - cron: '*/15 4-9 * * 1-5'
   workflow_dispatch:
     inputs:
       test_mode:
@@ -15,10 +15,12 @@ permissions:
   contents: write
 
 jobs:
-  breakout-alert:
+  monitor:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Breakout Alert
-        run: python breakout_alert.py
+      - name: Run Monitor
+        run: python monitor_alert.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TEST_MODE: ${{ github.event.inputs.test_mode || 'false' }}

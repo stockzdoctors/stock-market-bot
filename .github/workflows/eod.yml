@@ -1,9 +1,9 @@
-name: First 15-Min Candle Breakout Alert
+name: End of Day Report
 
 on:
   schedule:
-    # 9:32 AM IST (4:02 UTC) Monday–Friday — first candle closes at 9:30, 2 min buffer
-    - cron: '2 4 * * 1-5'
+    # 3:20 PM IST (9:50 UTC) Monday–Friday
+    - cron: '50 9 * * 1-5'
   workflow_dispatch:
     inputs:
       test_mode:
@@ -11,11 +11,8 @@ on:
         type: boolean
         default: true
 
-permissions:
-  contents: write
-
 jobs:
-  breakout-alert:
+  eod-report:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run Breakout Alert
-        run: python breakout_alert.py
+      - name: Run EOD Report
+        run: python eod_report.py
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TEST_MODE: ${{ github.event.inputs.test_mode || 'false' }}

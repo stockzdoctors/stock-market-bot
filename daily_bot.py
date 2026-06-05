@@ -670,10 +670,11 @@ class SmartFinanceDashboard:
         m += f"⚠️ _Not SEBI registered advice_"
         return m
 
-    def send_breakout_alert(self):
+    def send_breakout_alert(self, breakouts=None):
+        if breakouts is None:
+            breakouts = self.get_first_candle_breakouts()
         bot_token = self._get_token()
         chat_ids  = self._get_chat_ids()
-        breakouts = self.get_first_candle_breakouts()
         msg       = self.build_breakout_message(breakouts)
 
         print(f"\n📤 Sending breakout alert to {len(chat_ids)} groups...")
@@ -681,6 +682,7 @@ class SmartFinanceDashboard:
             ok = self._post(bot_token, cid, msg)
             print(f"  → {cid}: {'✅' if ok else '❌'}")
             time.sleep(1)
+        return breakouts
 
     # ------------------------------------------ legacy compatibility
 
