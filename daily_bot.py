@@ -382,24 +382,42 @@ class SmartFinanceDashboard:
     # --------------------------------------------------- news + chart 📰🖼️
 
     def fetch_market_news(self):
-        """Fetch top 5 market headlines from ET Markets RSS."""
-        try:
-            import xml.etree.ElementTree as ET
-            r = requests.get(
-                "https://economictimes.indiatimes.com/markets/stocks/rss.cms",
-                timeout=10,
-                headers={'User-Agent': 'Mozilla/5.0'}
-            )
-            root = ET.fromstring(r.content)
-            news = []
-            for item in root.findall('.//item')[:5]:
-                title = item.find('title')
-                if title is not None and title.text:
-                    news.append(title.text.strip())
-            return news
-        except Exception as e:
-            print(f"   News fetch failed: {e}")
-            return []
+        """Fetch top 5 Indian market headlines, trying multiple RSS sources."""
+        import xml.etree.ElementTree as ET
+
+        sources = [
+            "https://news.google.com/rss/search?q=NSE+NIFTY+Indian+stock+market&hl=en-IN&gl=IN&ceid=IN:en",
+            "https://news.google.com/rss/search?q=Sensex+NIFTY+market+today&hl=en-IN&gl=IN&ceid=IN:en",
+            "https://economictimes.indiatimes.com/markets/rss.cms",
+        ]
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+
+        for url in sources:
+            try:
+                r = requests.get(url, timeout=12, headers=headers)
+                if r.status_code != 200:
+                    continue
+                root = ET.fromstring(r.content)
+                news = []
+                for item in root.findall('.//item')[:5]:
+                    title = item.find('title')
+                    if title is not None and title.text:
+                        # strip Google News source suffix like " - Economic Times"
+                        headline = title.text.strip().split(' - ')[0].strip()
+                        if headline:
+                            news.append(headline)
+                if news:
+                    print(f"   News fetched from: {url.split('/')[2]}")
+                    return news
+            except Exception as e:
+                print(f"   Source failed ({url.split('/')[2]}): {e}")
+                continue
+
+        print("   All news sources failed — skipping news section")
+        return []
 
     def generate_nifty_chart(self):
         """Generate a 1-month NIFTY price chart; returns PNG path or None."""
