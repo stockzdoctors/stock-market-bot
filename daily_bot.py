@@ -128,15 +128,22 @@ class SmartFinanceDashboard:
             prev_close    = hist['Close'].iloc[-2]
             change        = current_price - prev_close
 
-            return {
+            result = {
                 'current_price':  round(current_price, 2),
                 'change':         round(change, 2),
                 'change_percent': round((change / prev_close) * 100, 2),
                 'prev_close':     round(prev_close, 2),
                 'high_52w':       round(hist['Close'].max(), 2),
                 'low_52w':        round(hist['Close'].min(), 2),
-                'volume':         hist['Volume'].iloc[-1] if 'Volume' in hist else 0
+                'volume':         hist['Volume'].iloc[-1] if 'Volume' in hist else 0,
+                'vix':            None
             }
+            try:
+                vix_hist    = yf.Ticker("^INDIAVIX").history(period="2d")
+                result['vix'] = round(vix_hist['Close'].iloc[-1], 2) if len(vix_hist) > 0 else None
+            except Exception:
+                pass
+            return result
         except Exception:
             return self._nifty_fallback()
 
@@ -304,8 +311,12 @@ class SmartFinanceDashboard:
         m += f"Change: {nifty_data['change']:+.2f} ({nifty_data['change_percent']:+.2f}%)\n"
         m += f"Prev Close: ₹{nifty_data['prev_close']:,.0f}\n\n"
         m += f"📊 *Market Breadth*\n"
-        m += f"Gainers: {prediction['gainers_count']}  |  Losers: {prediction['losers_count']}  |  Net: {b_str}\n\n"
-        m += f"{out_icon} *Outlook: {prediction['direction']}* {conf_icon} {prediction['confidence']}\n"
+        m += f"Gainers: {prediction['gainers_count']}  |  Losers: {prediction['losers_count']}  |  Net: {b_str}\n"
+        vix = nifty_data.get('vix')
+        if vix:
+            vix_icon = "😱 HIGH FEAR" if vix > 20 else ("⚠️ CAUTION" if vix > 15 else "😊 CALM")
+            m += f"India VIX: *{vix}*  {vix_icon}\n"
+        m += f"\n{out_icon} *Outlook: {prediction['direction']}* {conf_icon} {prediction['confidence']}\n"
         m += f"💬 {prediction['reason']}\n"
         m += f"━━━━━━━━━━━━━━━━━━━\n"
         m += f"_Part 1 of 3 — Top Movers next_"
@@ -571,6 +582,116 @@ class SmartFinanceDashboard:
 
         print("\n✅ Telegram sending completed!")
 
+    # ---------------------------------------- Sector / Gap / Volume 📡
+
+    def get_sector_performance(self):
+        sectors = [
+            ('BANK',   '^NSEBANK'),
+            ('IT',     '^CNXIT'),
+            ('PHARMA', '^CNXPHARMA'),
+            ('AUTO',   '^CNXAUTO'),
+            ('FMCG',   '^CNXFMCG'),
+            ('METAL',  '^CNXMETAL'),
+            ('REALTY', '^CNXREALTY'),
+            ('ENERGY', '^CNXENERGY'),
+        ]
+        results = []
+        for name, symbol in sectors:
+            try:
+                h = yf.Ticker(symbol).history(period='2d')
+                if len(h) < 2:
+                    continue
+                chg = (h['Close'].iloc[-1] - h['Close'].iloc[-2]) / h['Close'].iloc[-2] * 100
+                results.append({'name': name, 'change': round(chg, 2)})
+            except Exception:
+                continue
+        return sorted(results, key=lambda x: x['change'], reverse=True)
+
+    def get_gap_scanner(self):
+        up, down = [], []
+        for symbol in self.nifty_50_symbols:
+            try:
+                h = yf.Ticker(symbol).history(period='5d', interval='1d')
+                if len(h) < 2:
+                    continue
+                prev_close = h['Close'].iloc[-2]
+                today_open = h['Open'].iloc[-1]
+                gap_pct    = (today_open - prev_close) / prev_close * 100
+                sym        = symbol.replace('.NS', '')
+                if gap_pct >= 0.8:
+                    up.append({'symbol': sym, 'gap_pct': round(gap_pct, 2), 'open': round(today_open, 2)})
+                elif gap_pct <= -0.8:
+                    down.append({'symbol': sym, 'gap_pct': round(gap_pct, 2), 'open': round(today_open, 2)})
+            except Exception:
+                continue
+        return {
+            'up':   sorted(up,   key=lambda x: x['gap_pct'], reverse=True)[:5],
+            'down': sorted(down, key=lambda x: x['gap_pct'])[:5],
+        }
+
+    def get_volume_spikes(self):
+        spikes = []
+        for symbol in self.nifty_50_symbols:
+            try:
+                h = yf.Ticker(symbol).history(period='25d', interval='1d')
+                if len(h) < 21 or 'Volume' not in h.columns:
+                    continue
+                avg_vol   = h['Volume'].iloc[-21:-1].mean()
+                today_vol = h['Volume'].iloc[-1]
+                if avg_vol == 0:
+                    continue
+                ratio = today_vol / avg_vol
+                if ratio >= 2.0:
+                    chg = (h['Close'].iloc[-1] - h['Close'].iloc[-2]) / h['Close'].iloc[-2] * 100
+                    spikes.append({
+                        'symbol':     symbol.replace('.NS', ''),
+                        'ratio':      round(ratio, 1),
+                        'change_pct': round(chg, 2),
+                        'price':      round(h['Close'].iloc[-1], 2),
+                    })
+            except Exception:
+                continue
+        return sorted(spikes, key=lambda x: x['ratio'], reverse=True)[:6]
+
+    def build_part4_sector_performance(self, sectors):
+        m = f"🏭 *SECTOR PERFORMANCE*\n\n"
+        for s in sectors:
+            icon    = "🟢" if s['change'] > 0 else ("🔴" if s['change'] < 0 else "⚪")
+            bar_len = min(abs(int(s['change'] * 2)), 6)
+            bar     = ("█" * bar_len) if bar_len > 0 else "─"
+            m += f"{icon} *{s['name']:<8}*  {s['change']:+.2f}%  {bar}\n"
+        if len(sectors) >= 2:
+            m += f"\n🏆 Leading : *{sectors[0]['name']}*  ({sectors[0]['change']:+.2f}%)\n"
+            m += f"⬇️  Lagging : *{sectors[-1]['name']}*  ({sectors[-1]['change']:+.2f}%)\n"
+        m += f"━━━━━━━━━━━━━━━━━━━\n"
+        m += f"_Part 4 of 5_"
+        return m
+
+    def build_part5_gap_volume(self, gaps, volume_spikes):
+        m = f"📡 *GAP SCANNER + VOLUME SPIKES*\n\n"
+        if gaps['up']:
+            m += f"⬆️ *GAP UP*\n"
+            for s in gaps['up']:
+                m += f"  📈 *{s['symbol']}*  Open ₹{s['open']}  (+{s['gap_pct']}%)\n"
+            m += "\n"
+        if gaps['down']:
+            m += f"⬇️ *GAP DOWN*\n"
+            for s in gaps['down']:
+                m += f"  📉 *{s['symbol']}*  Open ₹{s['open']}  ({s['gap_pct']}%)\n"
+            m += "\n"
+        if not gaps['up'] and not gaps['down']:
+            m += f"_No significant gaps today_\n\n"
+        if volume_spikes:
+            m += f"🔊 *VOLUME SPIKES  (2x+ avg)*\n"
+            for s in volume_spikes:
+                arrow = "📈" if s['change_pct'] > 0 else "📉"
+                m += f"  {arrow} *{s['symbol']}*  {s['ratio']}x vol  {s['change_pct']:+.2f}%  ₹{s['price']}\n"
+        else:
+            m += f"_No volume spikes detected today_"
+        m += f"\n━━━━━━━━━━━━━━━━━━━\n"
+        m += f"_Part 5 of 5_"
+        return m
+
     # ---------------------------------------- ORB breakout scanner 📊
 
     def get_first_candle_breakouts(self):
@@ -604,6 +725,8 @@ class SmartFinanceDashboard:
                 curr_price  = round(intra['Close'].iloc[-1], 2)
                 risk        = round(first_high - first_low, 2)
                 sym         = stock['symbol'].replace('.NS', '')
+                avg_vol     = intra['Volume'].mean() if 'Volume' in intra.columns and intra['Volume'].mean() > 0 else 1
+                vol_ratio   = round(intra['Volume'].iloc[0] / avg_vol, 1) if avg_vol > 0 else 1.0
 
                 if risk <= 0:
                     continue
