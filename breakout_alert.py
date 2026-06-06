@@ -47,13 +47,15 @@ def push_to_git():
 
 
 if __name__ == "__main__":
+    test_mode = os.getenv("TEST_MODE", "").lower() in ("1", "true", "yes")
     today = date.today()
-    if today.weekday() >= 5:
-        print(f"Weekend ({today.strftime('%A')}). NSE closed. Skipping.")
-        sys.exit(0)
-    if today in NSE_HOLIDAYS:
-        print(f"NSE Holiday ({today}). Market closed. Skipping.")
-        sys.exit(0)
+    if not test_mode:
+        if today.weekday() >= 5:
+            print(f"Weekend ({today.strftime('%A')}). NSE closed. Skipping.")
+            sys.exit(0)
+        if today in NSE_HOLIDAYS:
+            print(f"NSE Holiday ({today}). Market closed. Skipping.")
+            sys.exit(0)
 
     print("⚡ First 15-Min Candle Breakout Scanner")
     print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

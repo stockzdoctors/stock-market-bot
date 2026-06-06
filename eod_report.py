@@ -79,8 +79,9 @@ def build_eod_message():
 
 
 def main():
+    test_mode = os.getenv("TEST_MODE", "").lower() in ("1", "true", "yes")
     today = date.today()
-    if today.weekday() >= 5 or today in NSE_HOLIDAYS:
+    if not test_mode and (today.weekday() >= 5 or today in NSE_HOLIDAYS):
         print("Market closed. Skipping EOD report.")
         sys.exit(0)
 

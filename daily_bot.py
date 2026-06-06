@@ -819,13 +819,15 @@ class SmartFinanceDashboard:
 
 # ══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
+    test_mode = os.getenv("TEST_MODE", "").lower() in ("1", "true", "yes")
     today = date.today()
-    if today.weekday() >= 5:
-        print(f"Weekend ({today.strftime('%A %d-%b-%Y')}). NSE closed. Skipping.")
-        sys.exit(0)
-    if today in NSE_HOLIDAYS:
-        print(f"NSE Holiday ({today.strftime('%d-%b-%Y')}). Market closed. Skipping.")
-        sys.exit(0)
+    if not test_mode:
+        if today.weekday() >= 5:
+            print(f"Weekend ({today.strftime('%A %d-%b-%Y')}). NSE closed. Skipping.")
+            sys.exit(0)
+        if today in NSE_HOLIDAYS:
+            print(f"NSE Holiday ({today.strftime('%d-%b-%Y')}). Market closed. Skipping.")
+            sys.exit(0)
 
     print("🚀 Starting Billionaires Group Market Analysis Bot...")
     print(f"⏰ {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
