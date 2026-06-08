@@ -9,7 +9,7 @@ on:
       test_mode:
         description: 'Test mode — send to test group only'
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: write
