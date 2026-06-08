@@ -1,0 +1,44 @@
+{
+  "date": "2026-06-08",
+  "signals": [
+    {
+      "symbol": "POWERGRID",
+      "type": "BUY",
+      "entry": 287.3,
+      "sl": 282.6,
+      "target": 296.7,
+      "risk": 4.7,
+      "change_pct": 0.65,
+      "current": 287.5,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "ADANIPORTS",
+      "type": "BUY",
+      "entry": 1821.4,
+      "sl": 1803.7,
+      "target": 1856.8,
+      "risk": 17.7,
+      "change_pct": -0.16,
+      "current": 1821.6,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "MARUTI",
+      "type": "BUY",
+      "entry": 12947.0,
+      "sl": 12844.0,
+      "target": 13153.0,
+      "risk": 103.0,
+      "change_pct": -0.79,
+      "current": 12952.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
