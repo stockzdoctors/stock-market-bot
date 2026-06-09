@@ -1,0 +1,83 @@
+{
+  "date": "2026-06-09",
+  "signals": [
+    {
+      "symbol": "INDUSINDBK",
+      "type": "BUY",
+      "entry": 912.4,
+      "sl": 898.1,
+      "target": 941.0,
+      "risk": 14.3,
+      "change_pct": 2.12,
+      "current": 914.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "ICICIBANK",
+      "type": "BUY",
+      "entry": 1269.8,
+      "sl": 1254.3,
+      "target": 1300.8,
+      "risk": 15.5,
+      "change_pct": 1.78,
+      "current": 1272.6,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "AXISBANK",
+      "type": "BUY",
+      "entry": 1287.1,
+      "sl": 1271.5,
+      "target": 1318.3,
+      "risk": 15.6,
+      "change_pct": 1.69,
+      "current": 1289.3,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "DIVISLAB",
+      "type": "BUY",
+      "entry": 6596.0,
+      "sl": 6559.0,
+      "target": 6670.0,
+      "risk": 37.0,
+      "change_pct": 1.57,
+      "current": 6623.5,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "ASIANPAINT",
+      "type": "BUY",
+      "entry": 2686.1,
+      "sl": 2665.8,
+      "target": 2726.7,
+      "risk": 20.3,
+      "change_pct": 1.12,
+      "current": 2689.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "HINDUNILVR",
+      "type": "BUY",
+      "entry": 2120.2,
+      "sl": 2111.2,
+      "target": 2138.2,
+      "risk": 9.0,
+      "change_pct": 0.48,
+      "current": 2120.6,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
