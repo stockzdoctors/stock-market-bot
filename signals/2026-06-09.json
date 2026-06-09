@@ -9,10 +9,10 @@
       "target": 6670.0,
       "risk": 37.0,
       "change_pct": 3.19,
-      "current": 6729.0,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 6759.0,
+      "status": "TARGET_HIT",
+      "hit_price": 6759.0,
+      "hit_time": "11:15"
     },
     {
       "symbol": "EICHERMOT",
@@ -22,7 +22,7 @@
       "target": 7231.5,
       "risk": 57.0,
       "change_pct": 3.14,
-      "current": 7271.5,
+      "current": 7185.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -35,7 +35,7 @@
       "target": 941.0,
       "risk": 14.3,
       "change_pct": 2.25,
-      "current": 915.2,
+      "current": 922.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -48,10 +48,10 @@
       "target": 1003.0,
       "risk": 6.5,
       "change_pct": 2.0,
-      "current": 1001.35,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 1004.0,
+      "status": "TARGET_HIT",
+      "hit_price": 1004.0,
+      "hit_time": "11:15"
     },
     {
       "symbol": "ICICIBANK",
@@ -61,7 +61,7 @@
       "target": 1300.8,
       "risk": 15.5,
       "change_pct": 1.83,
-      "current": 1273.2,
+      "current": 1273.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -74,7 +74,7 @@
       "target": 2726.7,
       "risk": 20.3,
       "change_pct": 1.8,
-      "current": 2707.2,
+      "current": 2708.1,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 904.7,
       "risk": 10.85,
       "change_pct": 1.47,
-      "current": 883.9,
+      "current": 886.9,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,7 +100,7 @@
       "target": 10924.0,
       "risk": 45.0,
       "change_pct": 1.15,
-      "current": 10919.0,
+      "current": 10911.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -113,10 +113,10 @@
       "target": 13098.0,
       "risk": 57.0,
       "change_pct": 0.77,
-      "current": 13010.0,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 13110.0,
+      "status": "TARGET_HIT",
+      "hit_price": 13110.0,
+      "hit_time": "11:15"
     },
     {
       "symbol": "HINDUNILVR",
@@ -126,7 +126,7 @@
       "target": 2138.2,
       "risk": 9.0,
       "change_pct": 0.7,
-      "current": 2124.8,
+      "current": 2134.4,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
