@@ -1,0 +1,122 @@
+{
+  "date": "2026-06-10",
+  "signals": [
+    {
+      "symbol": "NESTLEIND",
+      "type": "BUY",
+      "entry": 1440.3,
+      "sl": 1411.7,
+      "target": 1497.5,
+      "risk": 28.6,
+      "change_pct": 2.56,
+      "current": 1446.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "BRITANNIA",
+      "type": "BUY",
+      "entry": 5199.5,
+      "sl": 5103.5,
+      "target": 5391.5,
+      "risk": 96.0,
+      "change_pct": 2.2,
+      "current": 5220.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "RELIANCE",
+      "type": "BUY",
+      "entry": 1292.8,
+      "sl": 1275.2,
+      "target": 1328.0,
+      "risk": 17.6,
+      "change_pct": 1.96,
+      "current": 1293.7,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "DMART",
+      "type": "BUY",
+      "entry": 4131.7,
+      "sl": 4080.1,
+      "target": 4234.9,
+      "risk": 51.6,
+      "change_pct": 1.51,
+      "current": 4155.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "ONGC",
+      "type": "BUY",
+      "entry": 259.7,
+      "sl": 258.05,
+      "target": 263.0,
+      "risk": 1.65,
+      "change_pct": 1.0,
+      "current": 261.6,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "TCS",
+      "type": "BUY",
+      "entry": 2169.0,
+      "sl": 2147.0,
+      "target": 2213.0,
+      "risk": 22.0,
+      "change_pct": 0.86,
+      "current": 2171.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "SBIN",
+      "type": "BUY",
+      "entry": 1010.35,
+      "sl": 1001.1,
+      "target": 1028.85,
+      "risk": 9.25,
+      "change_pct": 0.78,
+      "current": 1011.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "EICHERMOT",
+      "type": "BUY",
+      "entry": 7248.0,
+      "sl": 7167.5,
+      "target": 7409.0,
+      "risk": 80.5,
+      "change_pct": 0.68,
+      "current": 7252.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "POWERGRID",
+      "type": "BUY",
+      "entry": 285.4,
+      "sl": 284.05,
+      "target": 288.1,
+      "risk": 1.35,
+      "change_pct": 0.21,
+      "current": 286.3,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
