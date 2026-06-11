@@ -541,9 +541,13 @@ class SmartFinanceDashboard:
                 data={'chat_id': chat_id, 'text': text, 'parse_mode': 'Markdown'},
                 timeout=15
             )
-            if r.status_code == 200:
+            try:
+                body = r.json()
+            except Exception:
+                body = {}
+            if r.status_code == 200 and body.get('ok'):
                 return True
-            print(f"   ❌ HTTP {r.status_code}: {r.text[:120]}")
+            print(f"   ❌ HTTP {r.status_code}: {r.text[:300]}")
             return False
         except Exception as e:
             print(f"   ❌ Exception: {e}")
