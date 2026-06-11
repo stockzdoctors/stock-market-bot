@@ -9,7 +9,7 @@
       "target": 1331.2,
       "risk": 14.5,
       "change_pct": 2.19,
-      "current": 1321.6,
+      "current": 1314.1,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -22,10 +22,10 @@
       "target": 392.45,
       "risk": 2.4,
       "change_pct": 1.93,
-      "current": 395.7,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 393.35,
+      "status": "TARGET_HIT",
+      "hit_price": 393.35,
+      "hit_time": "12:47"
     },
     {
       "symbol": "M&M",
@@ -35,10 +35,10 @@
       "target": 2984.2,
       "risk": 27.9,
       "change_pct": 1.71,
-      "current": 3003.0,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 3000.9,
+      "status": "TARGET_HIT",
+      "hit_price": 3000.9,
+      "hit_time": "12:47"
     },
     {
       "symbol": "JSWSTEEL",
@@ -48,7 +48,7 @@
       "target": 1293.5,
       "risk": 10.8,
       "change_pct": 0.97,
-      "current": 1282.1,
+      "current": 1282.3,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -61,7 +61,7 @@
       "target": 904.25,
       "risk": 7.5,
       "change_pct": 0.85,
-      "current": 891.5,
+      "current": 888.95,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -74,7 +74,7 @@
       "target": 1398.4,
       "risk": 7.8,
       "change_pct": 0.7,
-      "current": 1386.6,
+      "current": 1383.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 13412.0,
       "risk": 147.0,
       "change_pct": 0.64,
-      "current": 13157.0,
+      "current": 13138.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,7 +100,7 @@
       "target": 1276.4,
       "risk": 7.6,
       "change_pct": 0.6,
-      "current": 1266.3,
+      "current": 1264.1,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -113,7 +113,7 @@
       "target": 1335.4,
       "risk": 8.7,
       "change_pct": 0.57,
-      "current": 1322.0,
+      "current": 1317.3,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -126,7 +126,7 @@
       "target": 4144.4,
       "risk": 58.8,
       "change_pct": 0.27,
-      "current": 4052.9,
+      "current": 4025.2,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -139,7 +139,7 @@
       "target": 752.1,
       "risk": 3.9,
       "change_pct": 0.09,
-      "current": 747.5,
+      "current": 744.6,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -152,7 +152,7 @@
       "target": 1024.4,
       "risk": 10.3,
       "change_pct": 0.07,
-      "current": 1003.95,
+      "current": 1001.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -165,7 +165,7 @@
       "target": 11003.0,
       "risk": 99.0,
       "change_pct": -0.02,
-      "current": 10859.0,
+      "current": 10830.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -178,7 +178,7 @@
       "target": 7259.0,
       "risk": 59.5,
       "change_pct": -0.2,
-      "current": 7205.0,
+      "current": 7179.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -191,7 +191,7 @@
       "target": 285.3,
       "risk": 1.7,
       "change_pct": -0.19,
-      "current": 286.6,
+      "current": 286.65,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
