@@ -1,0 +1,24 @@
+name: Setup Cron Jobs (Run Once)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Create cron-job.org jobs
+        run: python setup_cron_jobs.py
+        env:
+          CRONJOB_API_KEY:    ${{ secrets.CRONJOB_API_KEY }}
+          GH_DISPATCH_TOKEN:  ${{ secrets.GH_DISPATCH_TOKEN }}
