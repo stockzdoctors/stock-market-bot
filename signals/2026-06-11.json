@@ -1,0 +1,70 @@
+{
+  "date": "2026-06-11",
+  "signals": [
+    {
+      "symbol": "ICICIBANK",
+      "type": "BUY",
+      "entry": 1302.2,
+      "sl": 1287.7,
+      "target": 1331.2,
+      "risk": 14.5,
+      "change_pct": 1.22,
+      "current": 1309.5,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "INDUSINDBK",
+      "type": "BUY",
+      "entry": 889.25,
+      "sl": 881.75,
+      "target": 904.25,
+      "risk": 7.5,
+      "change_pct": 0.7,
+      "current": 890.1,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "AXISBANK",
+      "type": "BUY",
+      "entry": 1318.0,
+      "sl": 1309.3,
+      "target": 1335.4,
+      "risk": 8.7,
+      "change_pct": 0.43,
+      "current": 1320.2,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "type": "BUY",
+      "entry": 387.65,
+      "sl": 385.25,
+      "target": 392.45,
+      "risk": 2.4,
+      "change_pct": 0.01,
+      "current": 388.15,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "POWERGRID",
+      "type": "SELL",
+      "entry": 288.7,
+      "sl": 290.4,
+      "target": 285.3,
+      "risk": 1.7,
+      "change_pct": 0.21,
+      "current": 287.85,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
