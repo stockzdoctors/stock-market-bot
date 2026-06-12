@@ -9,10 +9,10 @@
       "target": 911.15,
       "risk": 9.75,
       "change_pct": 3.5,
-      "current": 900.6,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 918.3,
+      "status": "TARGET_HIT",
+      "hit_price": 918.3,
+      "hit_time": "11:59"
     },
     {
       "symbol": "HDFCBANK",
@@ -22,10 +22,10 @@
       "target": 771.45,
       "risk": 5.6,
       "change_pct": 2.9,
-      "current": 766.4,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 772.0,
+      "status": "TARGET_HIT",
+      "hit_price": 772.0,
+      "hit_time": "11:59"
     },
     {
       "symbol": "BAJAJFINSV",
@@ -35,7 +35,7 @@
       "target": 1693.0,
       "risk": 9.0,
       "change_pct": 2.36,
-      "current": 1684.7,
+      "current": 1690.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -48,10 +48,10 @@
       "target": 4115.0,
       "risk": 20.0,
       "change_pct": 2.33,
-      "current": 4118.2,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 4179.0,
+      "status": "TARGET_HIT",
+      "hit_price": 4179.0,
+      "hit_time": "11:59"
     },
     {
       "symbol": "INDUSINDBK",
@@ -61,10 +61,10 @@
       "target": 916.9,
       "risk": 7.3,
       "change_pct": 2.24,
-      "current": 908.85,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 917.35,
+      "status": "TARGET_HIT",
+      "hit_price": 917.35,
+      "hit_time": "11:59"
     },
     {
       "symbol": "KOTAKBANK",
@@ -74,7 +74,7 @@
       "target": 407.35,
       "risk": 3.9,
       "change_pct": 2.17,
-      "current": 401.9,
+      "current": 403.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 2767.7,
       "risk": 15.9,
       "change_pct": 2.07,
-      "current": 2746.6,
+      "current": 2740.1,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,10 +100,10 @@
       "target": 1345.2,
       "risk": 5.9,
       "change_pct": 1.97,
-      "current": 1343.6,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 1356.3,
+      "status": "TARGET_HIT",
+      "hit_price": 1356.3,
+      "hit_time": "11:59"
     },
     {
       "symbol": "BHARTIARTL",
@@ -113,7 +113,7 @@
       "target": 1832.0,
       "risk": 13.0,
       "change_pct": 1.9,
-      "current": 1816.4,
+      "current": 1822.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -126,10 +126,10 @@
       "target": 11110.0,
       "risk": 56.0,
       "change_pct": 1.68,
-      "current": 11018.0,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 11117.0,
+      "status": "TARGET_HIT",
+      "hit_price": 11117.0,
+      "hit_time": "11:59"
     },
     {
       "symbol": "ADANIPORTS",
@@ -139,7 +139,7 @@
       "target": 1773.8,
       "risk": 13.6,
       "change_pct": 1.15,
-      "current": 1800.0,
+      "current": 1812.9,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
