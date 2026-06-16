@@ -1,0 +1,83 @@
+{
+  "date": "2026-06-16",
+  "signals": [
+    {
+      "symbol": "HCLTECH",
+      "type": "BUY",
+      "entry": 1151.1,
+      "sl": 1141.1,
+      "target": 1171.1,
+      "risk": 10.0,
+      "change_pct": 3.19,
+      "current": 1155.3,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "type": "BUY",
+      "entry": 962.0,
+      "sl": 946.3,
+      "target": 993.4,
+      "risk": 15.7,
+      "change_pct": 2.2,
+      "current": 962.95,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "TCS",
+      "type": "BUY",
+      "entry": 2184.2,
+      "sl": 2162.7,
+      "target": 2227.2,
+      "risk": 21.5,
+      "change_pct": 1.27,
+      "current": 2189.0,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "HDFCBANK",
+      "type": "BUY",
+      "entry": 782.95,
+      "sl": 779.5,
+      "target": 789.85,
+      "risk": 3.45,
+      "change_pct": 0.77,
+      "current": 783.25,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "INFY",
+      "type": "BUY",
+      "entry": 1139.5,
+      "sl": 1123.4,
+      "target": 1171.7,
+      "risk": 16.1,
+      "change_pct": 0.75,
+      "current": 1143.3,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "CIPLA",
+      "type": "SELL",
+      "entry": 1385.7,
+      "sl": 1389.8,
+      "target": 1377.5,
+      "risk": 4.1,
+      "change_pct": 0.27,
+      "current": 1385.4,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
