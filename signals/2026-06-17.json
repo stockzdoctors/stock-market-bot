@@ -9,7 +9,7 @@
       "target": 4323.0,
       "risk": 37.8,
       "change_pct": 1.16,
-      "current": 4249.9,
+      "current": 4300.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -22,7 +22,7 @@
       "target": 1420.1,
       "risk": 10.8,
       "change_pct": 1.13,
-      "current": 1407.4,
+      "current": 1406.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -35,7 +35,7 @@
       "target": 199.77,
       "risk": 1.39,
       "change_pct": 1.13,
-      "current": 198.29,
+      "current": 199.01,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -48,10 +48,10 @@
       "target": 454.55,
       "risk": 1.85,
       "change_pct": 0.99,
-      "current": 455.25,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 455.3,
+      "status": "TARGET_HIT",
+      "hit_price": 455.3,
+      "hit_time": "12:57"
     },
     {
       "symbol": "BHARTIARTL",
@@ -61,7 +61,7 @@
       "target": 1876.3,
       "risk": 11.6,
       "change_pct": 0.86,
-      "current": 1868.9,
+      "current": 1875.7,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -74,7 +74,7 @@
       "target": 1028.75,
       "risk": 4.65,
       "change_pct": 0.77,
-      "current": 1023.5,
+      "current": 1026.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 4405.3,
       "risk": 25.7,
       "change_pct": 0.72,
-      "current": 4369.4,
+      "current": 4380.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,7 +100,7 @@
       "target": 937.9,
       "risk": 4.95,
       "change_pct": 0.72,
-      "current": 932.7,
+      "current": 936.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -113,7 +113,7 @@
       "target": 1287.6,
       "risk": 6.0,
       "change_pct": 0.6,
-      "current": 1282.4,
+      "current": 1286.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -126,7 +126,7 @@
       "target": 4253.8,
       "risk": 27.2,
       "change_pct": 0.48,
-      "current": 4206.8,
+      "current": 4205.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -139,7 +139,7 @@
       "target": 1324.4,
       "risk": 6.4,
       "change_pct": 0.13,
-      "current": 1336.1,
+      "current": 1337.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
