@@ -9,7 +9,7 @@
       "target": 362.35,
       "risk": 2.6,
       "change_pct": 1.98,
-      "current": 362.45,
+      "current": 361.95,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -22,7 +22,7 @@
       "target": 1044.45,
       "risk": 6.4,
       "change_pct": 1.61,
-      "current": 1043.0,
+      "current": 1042.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -35,7 +35,7 @@
       "target": 7654.0,
       "risk": 39.5,
       "change_pct": 1.11,
-      "current": 7593.0,
+      "current": 7601.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -48,10 +48,10 @@
       "target": 6745.5,
       "risk": 35.0,
       "change_pct": 1.01,
-      "current": 6730.5,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 6768.0,
+      "status": "TARGET_HIT",
+      "hit_price": 6768.0,
+      "hit_time": "12:27"
     },
     {
       "symbol": "HDFCBANK",
@@ -61,7 +61,7 @@
       "target": 806.95,
       "risk": 6.85,
       "change_pct": 0.92,
-      "current": 794.4,
+      "current": 800.95,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -74,7 +74,7 @@
       "target": 1369.4,
       "risk": 6.7,
       "change_pct": 0.67,
-      "current": 1360.1,
+      "current": 1359.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 202.95,
       "risk": 1.52,
       "change_pct": 0.47,
-      "current": 199.97,
+      "current": 200.49,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,7 +100,7 @@
       "target": 1354.9,
       "risk": 6.8,
       "change_pct": 0.44,
-      "current": 1343.3,
+      "current": 1341.5,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -113,7 +113,7 @@
       "target": 1328.7,
       "risk": 12.1,
       "change_pct": 0.1,
-      "current": 1352.2,
+      "current": 1358.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -126,7 +126,7 @@
       "target": 1793.7,
       "risk": 18.4,
       "change_pct": 0.02,
-      "current": 1829.2,
+      "current": 1845.1,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -139,7 +139,7 @@
       "target": 928.8,
       "risk": 4.1,
       "change_pct": -0.13,
-      "current": 935.1,
+      "current": 939.95,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -152,7 +152,7 @@
       "target": 1240.3,
       "risk": 12.9,
       "change_pct": -0.27,
-      "current": 1265.7,
+      "current": 1270.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
