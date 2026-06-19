@@ -9,7 +9,7 @@
       "target": 1924.8,
       "risk": 17.9,
       "change_pct": 1.56,
-      "current": 1904.6,
+      "current": 1906.9,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -22,7 +22,7 @@
       "target": 294.1,
       "risk": 2.05,
       "change_pct": 1.07,
-      "current": 291.7,
+      "current": 292.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -35,7 +35,7 @@
       "target": 950.25,
       "risk": 5.75,
       "change_pct": 0.61,
-      "current": 944.5,
+      "current": 947.45,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -48,7 +48,7 @@
       "target": 1366.4,
       "risk": 9.8,
       "change_pct": 0.57,
-      "current": 1349.9,
+      "current": 1347.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -61,10 +61,10 @@
       "target": 1415.0,
       "risk": 5.7,
       "change_pct": 0.56,
-      "current": 1408.3,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 1417.5,
+      "status": "TARGET_HIT",
+      "hit_price": 1417.5,
+      "hit_time": "12:54"
     },
     {
       "symbol": "BAJFINANCE",
@@ -74,7 +74,7 @@
       "target": 971.5,
       "risk": 5.8,
       "change_pct": 0.55,
-      "current": 964.4,
+      "current": 964.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -87,7 +87,7 @@
       "target": 247.2,
       "risk": 1.1,
       "change_pct": 0.24,
-      "current": 245.9,
+      "current": 246.45,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -100,7 +100,7 @@
       "target": 4239.9,
       "risk": 23.0,
       "change_pct": 0.23,
-      "current": 4199.0,
+      "current": 4210.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -113,7 +113,7 @@
       "target": 7749.0,
       "risk": 72.5,
       "change_pct": 0.07,
-      "current": 7607.5,
+      "current": 7611.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -126,7 +126,7 @@
       "target": 1783.6,
       "risk": 9.0,
       "change_pct": -0.06,
-      "current": 1770.6,
+      "current": 1772.7,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -139,7 +139,7 @@
       "target": 1308.0,
       "risk": 9.5,
       "change_pct": -0.3,
-      "current": 1290.0,
+      "current": 1295.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -152,7 +152,7 @@
       "target": 1347.9,
       "risk": 4.6,
       "change_pct": -0.18,
-      "current": 1353.3,
+      "current": 1351.8,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -165,7 +165,7 @@
       "target": 6689.5,
       "risk": 33.5,
       "change_pct": -0.3,
-      "current": 6747.0,
+      "current": 6743.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
