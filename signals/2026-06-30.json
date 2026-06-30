@@ -1,0 +1,31 @@
+{
+  "date": "2026-06-30",
+  "signals": [
+    {
+      "symbol": "BHARTIARTL",
+      "type": "BUY",
+      "entry": 1853.7,
+      "sl": 1844.3,
+      "target": 1872.5,
+      "risk": 9.4,
+      "change_pct": 0.83,
+      "current": 1855.6,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    },
+    {
+      "symbol": "TITAN",
+      "type": "BUY",
+      "entry": 4302.1,
+      "sl": 4277.5,
+      "target": 4351.3,
+      "risk": 24.6,
+      "change_pct": 0.61,
+      "current": 4303.1,
+      "status": "OPEN",
+      "hit_price": null,
+      "hit_time": null
+    }
+  ]
+}
