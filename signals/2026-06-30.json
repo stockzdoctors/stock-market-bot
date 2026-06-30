@@ -9,7 +9,7 @@
       "target": 1872.5,
       "risk": 9.4,
       "change_pct": 0.83,
-      "current": 1855.6,
+      "current": 1855.0,
       "status": "OPEN",
       "hit_price": null,
       "hit_time": null
@@ -22,10 +22,10 @@
       "target": 4351.3,
       "risk": 24.6,
       "change_pct": 0.61,
-      "current": 4303.1,
-      "status": "OPEN",
-      "hit_price": null,
-      "hit_time": null
+      "current": 4423.7,
+      "status": "TARGET_HIT",
+      "hit_price": 4423.7,
+      "hit_time": "10:57"
     }
   ]
 }
